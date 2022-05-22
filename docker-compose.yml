@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+  commandcenter:
+    container_name: commandcenter
+    build: .
+    ports:
+      - 8001:8000
+    environment:
+      - DB_HOST=mysql-commandcenter
+      - DB_PORT=3306
+      - DB_USER=app
+      - DB_PASS=App1234!
+      - DB_NAME=commandcenter
+    links:
+      - mysql
+    networks:
+      - net-commandcenter
+  mysql:
+    container_name: mysql-commandcenter
+    image: mysql:8
+    ports:
+      - 3307:3306
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_ROOT_PASSWORD=Arif1234!
+    networks:
+      - net-commandcenter
+
+networks:
+  net-commandcenter:
+    name: net-commandcenter
+
