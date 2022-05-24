@@ -1,6 +1,6 @@
 CREATE DATABASE commandcenter;
 
-CREATE USER 'app'@'%' IDENTIFIED WITH mysql_native_password BY 'App1234!';
+CREATE USER 'app'@'%' IDENTIFIED BY 'App1234!';
 GRANT ALL ON commandcenter.* TO 'app'@'%';
 FLUSH PRIVILEGES;
 

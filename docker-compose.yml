@@ -11,11 +11,12 @@ services:
       - DB_USER=app
       - DB_PASS=App1234!
       - DB_NAME=commandcenter
-    links:
-      - mysql
+    depends_on:
+      mysql-commandcenter:
+        condition: service_healthy
     networks:
       - net-commandcenter
-  mysql:
+  mysql-commandcenter:
     container_name: mysql-commandcenter
     image: mysql:8
     ports:
@@ -26,6 +27,10 @@ services:
       - MYSQL_ROOT_PASSWORD=Arif1234!
     networks:
       - net-commandcenter
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 10s
+      retries: 10
 
 networks:
   net-commandcenter:

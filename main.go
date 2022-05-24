@@ -35,11 +35,13 @@ func main() {
 	DB_USER := os.Getenv("DB_USER")
 	DB_PASS := os.Getenv("DB_PASS")
 	DB_NAME := os.Getenv("DB_NAME")
+	DB_PORT := os.Getenv("DB_PORT")
 
 	db, err := sqlx.Open(
 		"mysql",
-		fmt.Sprintf("%s:%s!@tcp(%s)/%s", DB_USER, DB_PASS, DB_HOST, DB_NAME),
+		fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", DB_USER, DB_PASS, DB_HOST, DB_PORT, DB_NAME),
 	)
+	defer db.Close()
 	if err != nil {
 		panic(err)
 	}
